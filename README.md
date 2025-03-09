@@ -29,8 +29,6 @@ docker-compose --version
 cd /srv
 git clone https://github.com/ilia-no/nginx-multi-web-app
 cd nginx-multi-web-app
-docker-compose up -d
-docker ps
 ```
 
 
