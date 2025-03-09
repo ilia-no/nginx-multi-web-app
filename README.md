@@ -25,10 +25,6 @@ sudo certbot renew --dry-run --force-renewal
 ```
 
 ```bash
-sudo certbot renew --dry-run --force-renewal
-```
-
-```bash
 EDITOR=nano crontab -e
 ```
 

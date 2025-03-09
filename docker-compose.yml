@@ -3,29 +3,19 @@ services:
     build: ./domain1
     container_name: domain1
     restart: always
-    expose:
-      - "8001"
-    networks:
-      - web
+    ports:
+      - "127.0.0.1:8001:8001"
 
   domain2:
     build: ./domain2
     container_name: domain2
     restart: always
     expose:
-      - "8002"
-    networks:
-      - web
+      - "127.0.0.1:8002:8002"
 
   domain3:
     build: ./domain3
     container_name: domain3
     restart: always
     expose:
-      - "8003"
-    networks:
-      - web
-
-networks:
-  web:
-    driver: bridge
+      - "127.0.0.1:8003:8003"
