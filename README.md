@@ -1,4 +1,3 @@
-
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
@@ -36,16 +35,12 @@ docker ps
 
 
 ```bash
-docker-compose stop nginx
-docker run --rm -it \
-    -v $(pwd)/certbot/conf:/etc/letsencrypt \
-    -v $(pwd)/certbot/www:/var/www/certbot \
-    certbot/certbot certonly --standalone \
-    # --email your-email@example.com \
-    --register-unsafely-without-email \
-    -d test.been.earth -d test1.been.earth -d test2.been.earth \
-    --agree-tos --no-eff-email --force-renewal
-docker-compose start nginx
+docker-compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ --dry-run -d test.been.earth -d test2.been.earth -d test3.been.earth
+```
+
+```bash
+docker-compose restart
+docker-compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ -d test.been.earth -d test2.been.earth -d test3.been.earth
 ```
 
 ```bash
@@ -53,7 +48,7 @@ EDITOR=nano crontab -e
 ```
 
 ```bash
-0 3 * * * docker run --rm -v $(pwd)/certbot/conf:/etc/letsencrypt -v $(pwd)/certbot/www:/var/www/certbot certbot/certbot renew --standalone --pre-hook "docker-compose stop nginx" --post-hook "docker-compose start nginx" --quiet
+0 3 * * * docker-compose run --rm certbot renew
 ```
 
 ```bash
