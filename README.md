@@ -2,7 +2,46 @@
 
 ```bash
 sudo apt update && sudo apt upgrade -y
+sudo apt install -y python3 nginx certbot python3-certbot-nginx git
 ```
+
+
+## Cloning the repository
+```bash
+cd /srv
+git clone https://github.com/ilia-no/nginx-multi-web-app
+cd nginx-multi-web-app
+```
+
+
+## Creating certificates (SSL)
+```bash
+mv nginx/no-ssl.conf /etc/nginx/sites-available/default
+```
+
+```bash
+sudo certbot --nginx --register-unsafely-without-email -d test.been.earth -d test2.been.earth -d test3.been.earth
+sudo certbot renew --dry-run --force-renewal
+```
+
+```bash
+sudo certbot renew --dry-run --force-renewal
+```
+
+```bash
+EDITOR=nano crontab -e
+```
+
+```bash
+0 3 * * * certbot renew --quiet --post-hook "systemctl reload nginx"
+```
+
+```bash
+mv nginx/ssl.conf /etc/nginx/sites-available/default
+```
+
+
+## Docker installing
 
 ```bash
 sudo apt install apt-transport-https ca-certificates curl software-properties-common
@@ -27,58 +66,13 @@ docker --version
 docker-compose --version
 ```
 
+## Building and running the project
 ```bash
-cd /srv
-git clone https://github.com/ilia-no/nginx-multi-web-app
-cd nginx-multi-web-app
-```
-
-## The real challenge begins here.
-```bash
+docker-compose build
 docker-compose up -d
 ```
 
-```bash
-docker-compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ --dry-run -d test.been.earth -d test2.been.earth -d test3.been.earth
-```
-
-```bash
-docker-compose restart
-docker-compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ -d test.been.earth -d test2.been.earth -d test3.been.earth
-```
-
-## Then we need to enable SSL in the nginx configuration file.
-
-```bash
-docker-compose down
-```
-
-Now we have to go to "docker-compose.yml" and uncomment the lines with the certificates (See nginx volumes).
-It should look like this:
-
-```bash
-nano docker-compose.yml
-```
-
-```yaml
-volumes:
-    # - ./nginx/no-ssl.conf:/etc/nginx/nginx.conf:ro # Comment this line after you have SSL
-    - ./nginx/ssl.conf:/etc/nginx/nginx.conf:ro # Uncomment this line after you have SSL
-    - ./certbot/www:/var/www/certbot/:ro
-    - ./certbot/conf/:/etc/nginx/ssl/:ro # Uncomment this line after you have SSL
-```
-
-```bash
-docker-compose up -d
-```
-
-```bash
-EDITOR=nano crontab -e
-```
-
-```bash
-0 3 * * * docker-compose run --rm certbot renew
-```
+## Setting up firewall
 
 ```bash
 ufw reset

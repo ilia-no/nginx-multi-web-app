@@ -26,31 +26,6 @@ services:
     networks:
       - web
 
-  nginx:
-    image: nginx:latest
-    container_name: nginx_proxy
-    restart: always
-    volumes:
-      - ./nginx/no-ssl.conf:/etc/nginx/nginx.conf:ro # Comment this line after you have SSL
-      # - ./nginx/ssl.conf:/etc/nginx/nginx.conf:ro # Uncomment this line after you have SSL
-      - ./certbot/www:/var/www/certbot/:ro
-      # - ./certbot/conf/:/etc/nginx/ssl/:ro # Uncomment this line after you have SSL
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - domain1
-      - domain2
-      - domain3
-    networks:
-      - web
-  
-  certbot:
-    image: certbot/certbot:latest
-    volumes:
-      - ./certbot/www/:/var/www/certbot/:rw
-      - ./certbot/conf/:/etc/letsencrypt/:rw
-
 networks:
   web:
     driver: bridge
