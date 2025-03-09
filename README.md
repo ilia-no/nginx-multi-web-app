@@ -55,3 +55,16 @@ EDITOR=nano crontab -e
 ```bash
 0 3 * * * docker run --rm -v $(pwd)/certbot/conf:/etc/letsencrypt -v $(pwd)/certbot/www:/var/www/certbot certbot/certbot renew --standalone --pre-hook "docker-compose stop nginx" --post-hook "docker-compose start nginx" --quiet
 ```
+
+```bash
+ufw reset
+ufw default deny incoming
+ufw default allow outgoing
+
+ufw allow http
+ufw allow https
+ufw allow ssh
+ufw enable
+ufw reload
+ufw status verbose
+```
