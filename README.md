@@ -56,6 +56,10 @@ docker-compose down
 Now we have to go to "docker-compose.yml" and uncomment the lines with the certificates (See nginx volumes).
 It should look like this:
 
+```bash
+nano docker-compose.yml
+```
+
 ```yaml
 volumes:
     # - ./nginx/no-ssl.conf:/etc/nginx/nginx.conf:ro # Comment this line after you have SSL
