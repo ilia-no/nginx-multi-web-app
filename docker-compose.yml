@@ -10,12 +10,12 @@ services:
     build: ./domain2
     container_name: domain2
     restart: always
-    expose:
+    ports:
       - "127.0.0.1:8002:8002"
 
   domain3:
     build: ./domain3
     container_name: domain3
     restart: always
-    expose:
+    ports:
       - "127.0.0.1:8003:8003"
