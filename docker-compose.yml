@@ -31,9 +31,10 @@ services:
     container_name: nginx_proxy
     restart: always
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/no-ssl.conf:/etc/nginx/nginx.conf:ro # Comment this line after you have SSL
+      # - ./nginx/ssl.conf:/etc/nginx/nginx.conf:ro # Uncomment this line after you have SSL
       - ./certbot/www:/var/www/certbot/:ro
-      - ./certbot/conf/:/etc/nginx/ssl/:ro
+      # - ./certbot/conf/:/etc/nginx/ssl/:ro # Uncomment this line after you have SSL
     ports:
       - "80:80"
       - "443:443"
@@ -49,7 +50,7 @@ services:
     volumes:
       - ./certbot/www/:/var/www/certbot/:rw
       - ./certbot/conf/:/etc/letsencrypt/:rw
-      
+
 networks:
   web:
     driver: bridge
