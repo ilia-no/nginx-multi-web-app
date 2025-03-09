@@ -2,8 +2,37 @@ Test
 
 ```bash
 sudo apt update && sudo apt upgrade -y
-sudo apt install -y docker.io docker-compose certbot python3-certbot-nginx
-sudo systemctl enable --now docker
+sudo apt install -y python3 certbot python3-certbot-nginx
+```
+
+Installing docker
+
+```bash
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+apt-cache policy docker-ce
+sudo apt install docker-ce
+sudo systemctl status docker
+```
+
+Installing docker-compose
+```bash
+sudo apt install -y docker-compose
+```
+
+Enabling docker
+
+```bash
+sudo systemctl enable docker
+sudo systemctl start docker
+```
+
+Checking versions of installed packages to make sure they are all installed correctly
+
+```bash
+python3 --version
+docker --version
 ```
 
 ```bash
@@ -12,10 +41,23 @@ docker-compose --version
 ```
 
 ```bash
-sudo ufw allow OpenSSH
-sudo ufw allow 80/tcp
-sudo ufw allow 443/tcp
-sudo ufw enable
+ufw reset
+ufw default deny incoming
+ufw default allow outgoing
+
+ufw allow http
+ufw allow https
+ufw allow ssh
+ufw enable
+ufw reload
+ufw status verbose
+```
+
+
+```bash
+cd /srv
+git clone https://github.com/ilia-no/nginx-multi-web-app
+cd nginx-multi-web-app
 ```
 
 ```bash
