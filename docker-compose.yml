@@ -50,7 +50,7 @@ services:
     volumes:
       - ./certbot/www:/var/www/certbot
       - ./certbot/conf:/etc/letsencrypt
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do sleep 6h & wait $${!}; certbot renew --webroot -w /var/www/certbot --quiet; done'"
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do sleep 6h & wait $${!}; certbot renew --standalone --pre-hook \"docker-compose stop nginx\" --post-hook \"docker-compose start nginx\" --quiet; done'"
 
 networks:
   web:
