@@ -1,3 +1,18 @@
+## Before installation
+Configure your Dockerfiles to use the correct ports.
+For example:
+```bash
+./domain1/Dockerfile 8001
+./domain2/Dockerfile 8002
+./domain2/Dockerfile 8003
+```
+
+Configure your nginx configuration to use the correct ports and correct server names.
+```bash
+./nginx/no-ssl.conf
+./nginx/ssl.conf
+```
+
 ## Installation
 
 ```bash
@@ -19,8 +34,9 @@ cd nginx-multi-web-app
 mv nginx/no-ssl.conf /etc/nginx/sites-available/default
 ```
 
+Change your domains here
 ```bash
-sudo certbot --nginx --register-unsafely-without-email -d test.been.earth -d test2.been.earth -d test3.been.earth
+sudo certbot --nginx --register-unsafely-without-email -d test.been.earth -d test2.been.earth -d test3.been.earth 
 sudo certbot renew --dry-run --force-renewal
 ```
 
