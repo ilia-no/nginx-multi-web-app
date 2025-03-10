@@ -1,5 +1,23 @@
-## Before installation
+# Nginx & Docker: Multi-Domain Web Application Setup
+This repository provides a step-by-step guide for configuring Nginx and Docker to host multiple web applications under different domains. It covers reverse proxy setup, SSL certificate integration (using Let's Encrypt), and containerized deployment with Docker Compose.
+
+Features
+- Nginx as a Reverse Proxy: Route traffic to different web applications based on domain names.
+- Dockerized Deployment: Use Docker and Docker Compose for containerized applications.
+- SSL Integration: Secure connections with Let's Encrypt and Certbot.
+- Scalability: Easily add new domains and applications.
+Technologies Used
+- Nginx (as a reverse proxy)
+- Docker & Docker Compose
+- Let's Encrypt (Certbot)
+- Linux-based setup (Ubuntu/Debian recommended)
+
+## Getting Started
+
+
+### Before installation
 Configure your Dockerfiles to use the correct ports.
+
 For example:
 ```bash
 ./domain1/Dockerfile 8001
@@ -13,7 +31,12 @@ Configure your nginx configuration to use the correct ports and correct domains.
 ./nginx/ssl.conf
 ```
 
-## Installation
+Make changes (if needed) to the docker-compose.yml file.
+```bash
+./docker-compose.yml
+```
+
+### Installation
 
 ```bash
 sudo apt update && sudo apt upgrade -y
@@ -21,7 +44,7 @@ sudo apt install -y python3 nginx certbot python3-certbot-nginx git
 ```
 
 
-## Cloning the repository
+### Cloning the repository
 ```bash
 cd /srv
 git clone https://github.com/ilia-no/nginx-multi-web-app
@@ -29,7 +52,7 @@ cd nginx-multi-web-app
 ```
 
 
-## Creating certificates (SSL)
+### Creating certificates (SSL)
 ```bash
 mv nginx/no-ssl.conf /etc/nginx/sites-available/default
 ```
@@ -53,7 +76,7 @@ mv nginx/ssl.conf /etc/nginx/sites-available/default
 ```
 
 
-## Docker installing
+### Docker installing
 
 ```bash
 sudo apt install apt-transport-https ca-certificates curl software-properties-common
@@ -78,13 +101,13 @@ docker --version
 docker-compose --version
 ```
 
-## Building and running the project
+### Building and running the project
 ```bash
 docker-compose build
 docker-compose up -d
 ```
 
-## Setting up firewall
+### Setting up firewall
 
 ```bash
 ufw reset
