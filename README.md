@@ -7,7 +7,7 @@ For example:
 ./domain2/Dockerfile 8003
 ```
 
-Configure your nginx configuration to use the correct ports and correct server names.
+Configure your nginx configuration to use the correct ports and correct domains.
 ```bash
 ./nginx/no-ssl.conf
 ./nginx/ssl.conf
